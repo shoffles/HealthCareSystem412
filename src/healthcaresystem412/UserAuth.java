@@ -44,6 +44,10 @@ public class UserAuth {
         return this.map.get(username).getType();
     }
     
+    public User getUser(String username) {
+        return this.map.get(username);
+    }
+    
  
     
 }

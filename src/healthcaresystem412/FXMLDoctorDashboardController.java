@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -33,20 +34,26 @@ public class FXMLDoctorDashboardController implements Initializable {
     private Button BackButtonAction;
     @FXML
     private TableColumn<Report, String> nameCol;
-    @FXML
-    private TableColumn<Report, String> ageCol;
-    @FXML
-    private TableColumn<Report, String> dateCol;
+
     @FXML
     private Button newReportButton;
     @FXML
-    private TableView<?> table;
+    private TableView<Report> table;
 
-    /**
-     * Initializes the controller class.
-     */
+    public ObservableList<Report> list = FXCollections.observableArrayList(ReportList.reports);
+            
+    @FXML
+    private TableColumn<Report, String> idCol;
+    @FXML
+    private TableColumn<Report, String> titleCol;
+            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        idCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportId"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Report,String>("name"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportTitle"));
+        table.setItems(list);
+        
         for(int i = 0; i < ReportList.reports.size(); i++) {
             System.out.println(ReportList.reports.get(i));
         }

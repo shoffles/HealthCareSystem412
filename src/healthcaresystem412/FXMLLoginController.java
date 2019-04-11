@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.LoadException;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,12 +74,50 @@ public class FXMLLoginController implements Initializable {
                 }
                 else {
                     System.out.println("Login Successful! Type: Patient");
-                    System.out.println("Login Successful! Type: Doctor");
+                    
+                    /*
+                     try {
+                        //Load second scene
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPatientDashboard.fxml"));
+                        Parent root = loader.load();
+
+                        //Get controller of scene2
+                        FXMLPatientDashboardController patientDashboardController = loader.getController();
+                        //Pass whatever data you want. You can have multiple method calls here
+                        patientDashboardController.setUser(users.getUser(username));
+
+                        //Show scene 2 in new window            
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        //stage.setTitle("Second Window");
+                        stage.show();
+                    } 
+                     catch (LoadException ex) {
+                        System.err.println(ex);
+                         System.out.println(ex.getStackTrace());
+                    }
+                    
+`                   */
+                    /*
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPatientDashboard.fxml"));
+                    Parent root = loader.load();
+                    FXMLPatientDashboardController controller = loader.getController();
+                    System.out.println(users.getUser(username));
+                    controller.setUser(users.getUser(username));
+                    
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                    */
+                    //Works but wont display data
+                    
                     Parent loginParent = FXMLLoader.load(getClass().getResource("FXMLPatientDashboard.fxml"));
                     Scene loginScene = new Scene(loginParent);
                     Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
                     window.setScene(loginScene);
                     window.show();
+                    
+                    
                     
                 }
                 
