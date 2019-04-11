@@ -5,50 +5,56 @@ import java.time.LocalDate;
 
 public class Report {
     
-    private final long reportId;
-    private final String reportTitle;
-    //private final User user;
-    private final String age;
-    private final String reportText;
-    private final LocalDate reportDate;
-    private final String patientName;
+    private long reportId;
+    private LocalDate reportDate;
+    private String reportTitle;
+    private String reportBody;
+    
+    private String username;
+    private String name;
+    private String dob;
     
     
-    public Report(String patientName, String reportText, String age, String reportTitle) {
-        this.patientName = patientName;
+    
+    public Report(String title, String body, String username, String name, String dob) {
         this.reportId = System.currentTimeMillis();
-        this.reportTitle = reportTitle;
-        this.reportText = reportText;
         this.reportDate = LocalDate.now();
-        this.age = age;
+        this.reportTitle = title;
+        this.reportBody = body;
+        this.username = username;
+        this.name = name;
+        this.dob = dob; 
     }
 
     public long getReportId() {
         return reportId;
     }
 
-    /*
-    public User getUserName() {
-        return user;
-    }
-    */
-
-    public String getReportText() {
-        return reportText;
-    }
-
     public LocalDate getReportDate() {
         return reportDate;
     }
-    
-    public String getAge() {
-        return age;
+
+    public String getReportTitle() {
+        return reportTitle;
     }
-    
-    public String getPatientName() {
-        return patientName;
+
+    public String getReportBody() {
+        return reportBody;
     }
-    
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+   
  
     
 

@@ -47,6 +47,8 @@ public class FXMLReportCreationController implements Initializable {
     private TextField titleField;
     @FXML
     private TextArea reportField;
+    
+    private String globalUsername;
 
     
     
@@ -74,11 +76,13 @@ public class FXMLReportCreationController implements Initializable {
 
     @FXML
     private void handleSubmitButton(ActionEvent event) throws IOException {
-        Report report = new Report(this.nameField.getText(), this.reportField.getText(), this.ageField.getText(), this.titleField.getText());
+        /*
+        Report report = new Report(this.titleField.getText(), this.reportField.getText(), );
         ReportList.reports.add(report);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Report added!");
         alert.show();
+        */
         
         Parent loginParent = FXMLLoader.load(getClass().getResource("FXMLDoctorDashboard.fxml"));
         Scene loginScene = new Scene(loginParent);
