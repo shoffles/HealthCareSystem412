@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author Thomas
  */
-public class FXMLPatientDashboardController implements Initializable {
+public class FXMLPatientDashboardController extends Controller implements Initializable {
 
     @FXML
     private Button BackButtonAction;
@@ -42,7 +42,6 @@ public class FXMLPatientDashboardController implements Initializable {
     @FXML
     private TableColumn<Report, String> dateCol;
     
-    private User user;
     @FXML
     private TableView<Report> table;
     @FXML
@@ -53,7 +52,14 @@ public class FXMLPatientDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         
-        ObservableList<Report> list = FXCollections.observableArrayList(ReportList.reports);
+        System.out.println(Controller.user.getUsername());
+        ArrayList<Report> data = new ArrayList();
+        for(int i = 0; i < ReportList.reports.size(); i++) {
+            if (ReportList.reports.get(i).getUsername().equals(Controller.user.getUsername())) {
+                data.add(ReportList.reports.get(i));
+            }
+        }
+        ObservableList<Report> list = FXCollections.observableArrayList(data);
         
         idCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportId"));
         dateCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportData"));
@@ -75,9 +81,6 @@ public class FXMLPatientDashboardController implements Initializable {
     
     }
     
-    public void setUser(User user) {
-        this.user = user;
-        System.out.println("IT FUCKING SAVED");
-    }
+    
     
 }
