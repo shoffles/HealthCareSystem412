@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthcaresystem412.FXMLPatientDashboardController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            
+            <Button fx:id="BackButtonAction" layoutX="518.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Logout" />
+            <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient View">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <TableView fx:id="Table" layoutX="14.0" layoutY="39.0" prefHeight="344.0" prefWidth="484.0">
+              <columns>
+                <TableColumn fx:id="patientname" prefWidth="307.0" text="Patient" />
+                <TableColumn fx:id="gradeCol" prefWidth="176.0" text="Age" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
