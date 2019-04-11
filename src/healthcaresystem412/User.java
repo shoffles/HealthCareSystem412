@@ -4,25 +4,31 @@
  * and open the template in the editor.
  */
 package healthcaresystem412;
-
+import java.lang.System;
 
 class User {
     
-    private String email;
+    private long userId;
+    private String username;
     private String type;
     private String password;
     private String name;
     private String DOB;
     
-    public User(String email, String type, String password, String name, String DOB) {
-        this.email = email;
+    public User(String username, String type, String password, String name, String DOB) {
+        this.userId = System.currentTimeMillis();
+        this.username = username;
         this.type = type;
         this.password = password;
         this.name = name;
         this.DOB = DOB;
     }
-    public String getEmail() {
-        return email;
+
+    public long getUserId() {
+        return userId;
+    }
+    public String getUsername() {
+        return username;
     }
 
     public String getType() {

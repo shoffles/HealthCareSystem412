@@ -18,7 +18,7 @@ public class UserAuth {
     
     public UserAuth() {
         this.map.put("admin", new User( "admin", "doctor", "password", "Thomas Shoff", "3/13/1997"));
-        this.map.put("user", new User("admin","patient", "password", "Joe Shmo", "3/13/1997"));
+        this.map.put("user", new User("user","patient", "password", "Joe Shmo", "3/13/1997"));
     }
 
     
@@ -27,7 +27,7 @@ public class UserAuth {
             return false;
         }
         User user = new User(username, type.toLowerCase(), password, name, DOB);
-        this.map.put(user.getEmail(), user);
+        this.map.put(user.getUsername(), user);
         return true;
     }
     

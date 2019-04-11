@@ -49,12 +49,14 @@ public class FXMLReportCreationController implements Initializable {
     private TextArea reportField;
     
     private String globalUsername;
+    @FXML
+    private TextField usernameField;
 
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     @FXML
@@ -65,9 +67,13 @@ public class FXMLReportCreationController implements Initializable {
             user = UserAuth.map.get(username);
             this.nameField.setText(user.getName());
             this.ageField.setText(user.getDOB());
+            this.usernameField.setText(user.getUsername());
         }
         catch(Exception e) {
             System.out.println("Couldnt find user");
+            this.nameField.clear();
+            this.ageField.clear();
+            this.usernameField.clear();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("User not found, try again or input manually.");
             alert.show();
