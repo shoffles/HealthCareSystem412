@@ -7,6 +7,10 @@
 //Test Comment
 package healthcaresystem412;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 
@@ -17,10 +21,53 @@ public class UserAuth {
     public static HashMap<String, User> map = new HashMap<>();
     
     public UserAuth() {
-        this.map.put("admin", new User( "admin", "doctor", "password", "Thomas Shoff", "3/13/1997"));
-        this.map.put("user", new User("user","patient", "password", "Joe Shmo", "3/13/1997"));
+        String SQL = "SELECT user_name,user_type,user_password,user_first_last,user_dob " + 
+                "FROM user ";
+        
+        try (Connection sqlConnection = PostgresConnector.connect();
+                PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+            
+            ResultSet results = prepState.executeQuery();
+            
+            while (results.next()) {
+                User userToAdd = new User(results.getString("user_name"),
+                        results.getString("user_type"),
+                        results.getString("user_password"),
+                        results.getString("user_first_last"),
+                        results.getString("user_dob"));
+                        
+                this.map.put(userToAdd.getUsername(), userToAdd);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
+    
+    public void loadUserMap() {
+        String SQL = "SELECT user_name,user_type,user_password,user_first_last,user_dob " + 
+                "FROM user ";
+        
+        try (Connection sqlConnection = PostgresConnector.connect();
+                PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+            
+            ResultSet results = prepState.executeQuery();
+            
+            while (results.next()) {
+                User userToAdd = new User(results.getString("user_name"),
+                        results.getString("user_type"),
+                        results.getString("user_password"),
+                        results.getString("user_first_last"),
+                        results.getString("user_dob"));
+                        
+                this.map.put(userToAdd.getUsername(), userToAdd);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     
     public boolean addMapping(String username, String password, String type, String name, String DOB){
         if(this.map.containsKey(username)) {
