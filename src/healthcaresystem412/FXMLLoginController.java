@@ -8,6 +8,7 @@ package healthcaresystem412;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,6 +45,8 @@ public class FXMLLoginController extends Controller implements Initializable {
     
     private final UserAuth users = new UserAuth();
     private final ReportList reports = new ReportList();
+    @FXML
+    private Button createUserButton;
 
     /**
      * Initializes the controller class.
@@ -93,6 +96,15 @@ public class FXMLLoginController extends Controller implements Initializable {
                 alert.show();
             }
         }
+    }
+
+    @FXML
+    private void handleCreateUserButton(ActionEvent event) throws IOException {
+        Parent createUserParent = FXMLLoader.load(getClass().getResource("FXMLCreateUser.fxml"));
+        Scene createUserScene = new Scene(createUserParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(createUserScene);
+        window.show();
     }
     
 }

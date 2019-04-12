@@ -30,8 +30,8 @@ public class Report {
         return reportId;
     }
 
-    public LocalDate getReportDate() {
-        return reportDate;
+    public String getReportDate() {
+        return reportDate.toString();
     }
 
     public String getReportTitle() {

@@ -44,8 +44,6 @@ public class FXMLPatientDashboardController extends Controller implements Initia
     
     @FXML
     private TableView<Report> table;
-    @FXML
-    private Label testLabel;
 
 
     @Override
@@ -62,7 +60,7 @@ public class FXMLPatientDashboardController extends Controller implements Initia
         ObservableList<Report> list = FXCollections.observableArrayList(data);
         
         idCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportId"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportData"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportDate"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportTitle"));
         table.setItems(list);
         
