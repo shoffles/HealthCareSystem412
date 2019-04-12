@@ -27,7 +27,7 @@ public class UserAuth {
 
     
     public void loadUserMap() {
-        String SQL = "SELECT user_name,user_type,user_password,user_first_last,user_dob " + 
+        String SQL = "SELECT user_id,user_name,user_type,user_password,user_first_last,user_dob " + 
                 "FROM appuser ";
         
         try (Connection sqlConnection = PostgresConnector.connect();
@@ -36,7 +36,8 @@ public class UserAuth {
             ResultSet results = prepState.executeQuery();
             
             while (results.next()) {
-                User userToAdd = new User(results.getString("user_name"),
+                User userToAdd = new User(results.getLong("user_id"),
+                        results.getString("user_name"),
                         results.getString("user_type"),
                         results.getString("user_password"),
                         results.getString("user_first_last"),
@@ -59,8 +60,7 @@ public class UserAuth {
         } else {
             userValid = true;
             
-            User newUser = new User(username, type.toLowerCase(), password, name, DOB);
-            this.map.put(newUser.getUsername(), newUser);
+            User newUser;
             /*
 
 
@@ -73,7 +73,7 @@ public class UserAuth {
 
 
             try (Connection sqlConnection = PostgresConnector.connect();
-                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
 
                 prepState.setString(1, username);
                 prepState.setString(2, type.toLowerCase());
@@ -83,6 +83,17 @@ public class UserAuth {
 
 
                 int rowCount = prepState.executeUpdate();
+                
+                if (rowCount > 0) {
+                    try (ResultSet resultSet = prepState.getGeneratedKeys()) {
+                        if (resultSet.next()) {
+                            id = resultSet.getLong(1);
+                            newUser = new User(id, username, type.toLowerCase(), password, name, DOB);
+                        }   
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());

@@ -15,8 +15,8 @@ class User {
     private String name;
     private String DOB;
     
-    public User(String username, String type, String password, String name, String DOB) {
-        this.userId = System.currentTimeMillis();
+    public User(long userID, String username, String type, String password, String name, String DOB) {
+        this.userId = userID;
         this.username = username;
         this.type = type;
         this.password = password;
