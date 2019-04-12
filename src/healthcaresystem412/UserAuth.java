@@ -22,7 +22,7 @@ public class UserAuth {
     
     public UserAuth() {
         String SQL = "SELECT user_name,user_type,user_password,user_first_last,user_dob " + 
-                "FROM user ";
+                "FROM appuser ";
         
         try (Connection sqlConnection = PostgresConnector.connect();
                 PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
@@ -35,6 +35,7 @@ public class UserAuth {
                         results.getString("user_password"),
                         results.getString("user_first_last"),
                         results.getString("user_dob"));
+                
                         
                 this.map.put(userToAdd.getUsername(), userToAdd);
             }
