@@ -61,42 +61,67 @@ public class UserAuth {
             userValid = true;
             
             User newUser;
+            
+            long id = 0;
             /*
 
 
             */
-            String SQL = "INSERT INTO appuser(user_name,user_type,user_password,user_first_last,user_dob) " 
-                    + "VALUES(?,?,?,?,?)";
+            {
+                String SQL = "INSERT INTO appuser(user_name,user_type,user_password,user_first_last,user_dob) " 
+                        + "VALUES(?,?,?,?,?)";
 
-            long id = 0;
-
-
-
-            try (Connection sqlConnection = PostgresConnector.connect();
-                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
-
-                prepState.setString(1, username);
-                prepState.setString(2, type.toLowerCase());
-                prepState.setString(3, password);
-                prepState.setString(4, name);
-                prepState.setString(5, DOB);
-
-
-                int rowCount = prepState.executeUpdate();
                 
-                if (rowCount > 0) {
-                    try (ResultSet resultSet = prepState.getGeneratedKeys()) {
-                        if (resultSet.next()) {
-                            id = resultSet.getLong(1);
-                            newUser = new User(id, username, type.toLowerCase(), password, name, DOB);
-                        }   
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
 
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+
+
+                try (Connection sqlConnection = PostgresConnector.connect();
+                        PreparedStatement prepState = sqlConnection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
+
+                    prepState.setString(1, username);
+                    prepState.setString(2, type.toLowerCase());
+                    prepState.setString(3, password);
+                    prepState.setString(4, name);
+                    prepState.setString(5, DOB);
+
+
+                    int rowCount = prepState.executeUpdate();
+
+                    if (rowCount > 0) {
+                        try (ResultSet resultSet = prepState.getGeneratedKeys()) {
+                            if (resultSet.next()) {
+                                id = resultSet.getLong(1);
+                                newUser = new User(id, username, type.toLowerCase(), password, name, DOB);
+                            }   
+                        } catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            {
+                String SQL = "INSERT INTO doctor_to_patient_assignment(viewer_id, to_be_viewed_id) " 
+                        + "VALUES(?,?)";
+
+                
+
+
+
+                try (Connection sqlConnection = PostgresConnector.connect();
+                        PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+
+                    prepState.setLong(1, id);
+                    prepState.setLong(2, id);
+
+                    prepState.executeUpdate();
+
+                    
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             /*
 

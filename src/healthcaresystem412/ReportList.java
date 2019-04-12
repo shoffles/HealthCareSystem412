@@ -24,32 +24,35 @@ public class ReportList {
        
    }
    
-//    public void loadReportList(int[] userIDArray) {
-//        for (int i = 0; i < userIDArray.length; i++) {
-//            
-//        
-//            String SQL = "SELECT user_name,user_type,user_password,user_first_last,user_dob " + 
-//                    "FROM appuser ";
-//
-//            try (Connection sqlConnection = PostgresConnector.connect();
-//                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
-//
-//                ResultSet results = prepState.executeQuery();
-//
-//                while (results.next()) {
-//                    User userToAdd = new User(results.getString("user_name"),
-//                            results.getString("user_type"),
-//                            results.getString("user_password"),
-//                            results.getString("user_first_last"),
-//                            results.getString("user_dob"));
-//
-//                    this.report.put(userToAdd.getUsername(), userToAdd);
-//                }
-//
-//            } catch (SQLException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//    }
-    
+    public void loadReportList(int[] userIDArray) {
+        for (int i = 0; i < userIDArray.length; i++) {
+            
+        
+            String SQL = "SELECT appuser.user_name,appuser.user_first_last,appuser.user_dob,report.report_title,report.report_body " + 
+                    "FROM appuser " + 
+                    "INNER JOIN report ON appuser.user_id=report.assigned_user_id " + 
+                    "WHERE user_id = ?";
+
+            try (Connection sqlConnection = PostgresConnector.connect();
+                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+
+                prepState.setInt(1, i);
+                ResultSet results = prepState.executeQuery();
+
+                while (results.next()) {
+                    Report reportToAdd = new Report(results.getString("report_title"),
+                            results.getString("report_body"),
+                            results.getString("user_name"),
+                            results.getString("user_first_last"),
+                            results.getString("user_dob"));
+
+                    this.reports.add(reportToAdd);
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+        
 }

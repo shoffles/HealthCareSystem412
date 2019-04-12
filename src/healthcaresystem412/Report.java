@@ -17,7 +17,6 @@ public class Report {
     
     
     public Report(String title, String body, String username, String name, String dob) {
-        this.reportId = System.currentTimeMillis();
         this.reportDate = LocalDate.now();
         this.reportTitle = title;
         this.reportBody = body;

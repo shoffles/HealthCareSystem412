@@ -7,6 +7,10 @@ package healthcaresystem412;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -52,6 +56,38 @@ public class FXMLPatientDashboardController extends Controller implements Initia
         
         System.out.println(Controller.user.getUsername());
         ArrayList<Report> data = new ArrayList();
+        // SQL CODE TO ADD
+        /*
+        
+            
+        
+            String SQL = "SELECT appuser.user_name,appuser.user_first_last,appuser.user_dob,report.report_title,report.report_body " + 
+                    "FROM appuser " + 
+                    "INNER JOIN report ON appuser.user_id=report.assigned_user_id " + 
+                    "WHERE user_id = ?";
+
+            try (Connection sqlConnection = PostgresConnector.connect();
+                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+
+                prepState.setInt(1, i);
+                ResultSet results = prepState.executeQuery();
+
+                while (results.next()) {
+                    Report reportToAdd = new Report(results.getString("report_title"),
+                            results.getString("report_body"),
+                            results.getString("user_name"),
+                            results.getString("user_first_last"),
+                            results.getString("user_dob"));
+
+                    this.reports.add(reportToAdd);
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+*/
         for(int i = 0; i < ReportList.reports.size(); i++) {
             if (ReportList.reports.get(i).getUsername().equals(Controller.user.getUsername())) {
                 data.add(ReportList.reports.get(i));
