@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 public class Report {
     
-    private long reportId;
-    private LocalDate reportDate;
+//    private long reportId;
+//    private LocalDate reportDate;
     private String reportTitle;
     private String reportBody;
     
@@ -17,7 +17,7 @@ public class Report {
     
     
     public Report(String title, String body, String username, String name, String dob) {
-        this.reportDate = LocalDate.now();
+//        this.reportDate = LocalDate.now();
         this.reportTitle = title;
         this.reportBody = body;
         this.username = username;
@@ -25,13 +25,13 @@ public class Report {
         this.dob = dob; 
     }
 
-    public long getReportId() {
-        return reportId;
-    }
-
-    public String getReportDate() {
-        return reportDate.toString();
-    }
+//    public long getReportId() {
+//        return reportId;
+//    }
+//
+//    public String getReportDate() {
+//        return reportDate.toString();
+//    }
 
     public String getReportTitle() {
         return reportTitle;

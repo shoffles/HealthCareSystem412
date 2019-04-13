@@ -56,43 +56,42 @@ public class FXMLPatientDashboardController extends Controller implements Initia
         
         System.out.println(Controller.user.getUsername());
         ArrayList<Report> data = new ArrayList();
+        ArrayList<Integer> userIDs = new ArrayList();
         // SQL CODE TO ADD
-        /*
+        
         
             
         
-            String SQL = "SELECT appuser.user_name,appuser.user_first_last,appuser.user_dob,report.report_title,report.report_body " + 
+            String SQL = "SELECT appuser.user_id,doctor_to_patient_assignment.to_be_viewed_id " + 
                     "FROM appuser " + 
-                    "INNER JOIN report ON appuser.user_id=report.assigned_user_id " + 
+                    "INNER JOIN doctor_to_patient_assignment ON appuser.user_id=doctor_to_patient_assignment.viewer_id " + 
                     "WHERE user_id = ?";
 
             try (Connection sqlConnection = PostgresConnector.connect();
                     PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
 
-                prepState.setInt(1, i);
+                prepState.setInt(1, (int) Controller.user.getUserId());
                 ResultSet results = prepState.executeQuery();
-
+                
+                
                 while (results.next()) {
-                    Report reportToAdd = new Report(results.getString("report_title"),
-                            results.getString("report_body"),
-                            results.getString("user_name"),
-                            results.getString("user_first_last"),
-                            results.getString("user_dob"));
+                    userIDs.add(results.getInt("to_be_viewed_id"));
+                    System.out.println(results.getInt("to_be_viewed_id"));
 
-                    this.reports.add(reportToAdd);
                 }
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
-    }
-*/
-        for(int i = 0; i < ReportList.reports.size(); i++) {
-            if (ReportList.reports.get(i).getUsername().equals(Controller.user.getUsername())) {
-                data.add(ReportList.reports.get(i));
-            }
-        }
+        
+            data = ReportList.loadReportList(userIDs);
+    
+
+//        for(int i = 0; i < ReportList.reports.size(); i++) {
+//            if (ReportList.reports.get(i).getUsername().equals(Controller.user.getUsername())) {
+//                data.add(ReportList.reports.get(i));
+//            }
+//        }
         ObservableList<Report> list = FXCollections.observableArrayList(data);
         
         idCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportId"));

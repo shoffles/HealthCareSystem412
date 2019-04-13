@@ -24,11 +24,13 @@ public class ReportList {
        
    }
    
-    public void loadReportList(int[] userIDArray) {
-        for (int i = 0; i < userIDArray.length; i++) {
+    public static ArrayList<Report> loadReportList(ArrayList<Integer> userIDArrayList) {
+        ArrayList<Report> listToReturn = new ArrayList<>();
+        
+        for (int i = 0; i < userIDArrayList.size(); i++) {
             
         
-            String SQL = "SELECT appuser.user_name,appuser.user_first_last,appuser.user_dob,report.report_title,report.report_body " + 
+            String SQL = "SELECT appuser.user_name,appuser.user_first_last,appuser.user_dob,report.report_name,report.report_body " + 
                     "FROM appuser " + 
                     "INNER JOIN report ON appuser.user_id=report.assigned_user_id " + 
                     "WHERE user_id = ?";
@@ -36,23 +38,27 @@ public class ReportList {
             try (Connection sqlConnection = PostgresConnector.connect();
                     PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
 
-                prepState.setInt(1, i);
+                prepState.setInt(1, userIDArrayList.get(i));
                 ResultSet results = prepState.executeQuery();
 
                 while (results.next()) {
-                    Report reportToAdd = new Report(results.getString("report_title"),
+                    Report reportToAdd = new Report(results.getString("report_name"),
                             results.getString("report_body"),
                             results.getString("user_name"),
                             results.getString("user_first_last"),
                             results.getString("user_dob"));
+                    
+                    System.out.println(reportToAdd.toString());
 
-                    this.reports.add(reportToAdd);
+                    listToReturn.add(reportToAdd);
                 }
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
+        
+        return listToReturn;
     }
         
 }
