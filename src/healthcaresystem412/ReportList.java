@@ -39,7 +39,7 @@ public class ReportList {
                 
                 // Iterates through the results of the query, creating a report and adding it to the list
                 while (results.next()) {
-                    Report reportToAdd = new Report(results.getLong("report_id"),
+                    Report reportToAdd = new Report(results.getInt("report_id"),
                             results.getString("report_name"),
                             results.getString("report_body"),
                             results.getString("user_name"),
