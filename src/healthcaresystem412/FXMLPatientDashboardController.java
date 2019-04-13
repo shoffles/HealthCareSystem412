@@ -52,54 +52,43 @@ public class FXMLPatientDashboardController extends Controller implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-        System.out.println(Controller.user.getUsername());
-        ArrayList<Report> data = new ArrayList();
-        ArrayList<Integer> userIDs = new ArrayList();
-        // SQL CODE TO ADD
-        
-        
-            
-        
-            String SQL = "SELECT appuser.user_id,doctor_to_patient_assignment.to_be_viewed_id " + 
-                    "FROM appuser " + 
-                    "INNER JOIN doctor_to_patient_assignment ON appuser.user_id=doctor_to_patient_assignment.viewer_id " + 
-                    "WHERE user_id = ?";
+        // ArrayList to store UserId's of who the main user may view
+        ArrayList<Integer> userIDs = new ArrayList<>();
 
-            try (Connection sqlConnection = PostgresConnector.connect();
-                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+        // SQL Statment string to display who's reports the user may view
+        String SQL = "SELECT appuser.user_id,doctor_to_patient_assignment.to_be_viewed_id " + 
+                "FROM appuser " + 
+                "INNER JOIN doctor_to_patient_assignment ON appuser.user_id=doctor_to_patient_assignment.viewer_id " + 
+                "WHERE user_id = ?";
 
-                prepState.setInt(1, (int) Controller.user.getUserId());
-                ResultSet results = prepState.executeQuery();
-                
-                
-                while (results.next()) {
-                    userIDs.add(results.getInt("to_be_viewed_id"));
-                    System.out.println(results.getInt("to_be_viewed_id"));
+        // Connection to the database to run query
+        try (Connection sqlConnection = PostgresConnector.connect();
+                PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
 
-                }
+            // Set the "?" in the SQL String to be the User's ID to run against the assignment table
+            prepState.setInt(1, (int) Controller.user.getUserId());
+            ResultSet results = prepState.executeQuery();
 
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            // Steps through the results of the query, adding each userID the user may view to the ArrayList of userID's
+            while (results.next()) {
+                userIDs.add(results.getInt("to_be_viewed_id"));
             }
-        
-            data = ReportList.loadReportList(userIDs);
-    
 
-//        for(int i = 0; i < ReportList.reports.size(); i++) {
-//            if (ReportList.reports.get(i).getUsername().equals(Controller.user.getUsername())) {
-//                data.add(ReportList.reports.get(i));
-//            }
-//        }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        // Declares an ArrayList of reports that were loaded from the ReportList class
+        ArrayList<Report> data = ReportList.loadReportList(userIDs);
+        
+        // Converts data to an ArrayList that JavaFX can work with for setting tables
         ObservableList<Report> list = FXCollections.observableArrayList(data);
         
+        // Sets table values
         idCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportId"));
         dateCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportDate"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportTitle"));
         table.setItems(list);
-        
-
     }    
 
     @FXML

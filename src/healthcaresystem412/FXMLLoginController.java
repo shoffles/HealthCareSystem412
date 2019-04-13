@@ -69,6 +69,7 @@ public class FXMLLoginController extends Controller implements Initializable {
             if(users.checkUsernamePassword(username, this.password_field.getText())) {
                 if(users.getUserType(username).equals("doctor")) {
                     System.out.println("Login Successful! Type: Doctor");
+                    Controller.user = users.getUser(username);
                     Parent loginParent = FXMLLoader.load(getClass().getResource("FXMLDoctorDashboard.fxml"));
                     Scene loginScene = new Scene(loginParent);
                     Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
