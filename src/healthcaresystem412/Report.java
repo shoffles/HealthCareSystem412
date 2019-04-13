@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Report {
     
-//    private long reportId;
+    private long reportId;
 //    private LocalDate reportDate;
     private String reportTitle;
     private String reportBody;
@@ -16,7 +16,8 @@ public class Report {
     
     
     
-    public Report(String title, String body, String username, String name, String dob) {
+    public Report(long reportId, String title, String body, String username, String name, String dob) {
+        this.reportId = reportId;
 //        this.reportDate = LocalDate.now();
         this.reportTitle = title;
         this.reportBody = body;

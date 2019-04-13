@@ -87,7 +87,7 @@ public class FXMLReportCreationController implements Initializable {
     @FXML
     private void handleSubmitButton(ActionEvent event) throws IOException {
         
-        Report report = new Report(this.titleField.getText(), this.reportField.getText(), this.usernameField.getText(), this.nameField.getText(), this.ageField.getText());
+        // Report report = new Report(this.titleField.getText(), this.reportField.getText(), this.usernameField.getText(), this.nameField.getText(), this.ageField.getText());
         // Add to DB
         long assignedUserId = 0;
         
@@ -100,7 +100,7 @@ public class FXMLReportCreationController implements Initializable {
             try (Connection sqlConnection = PostgresConnector.connect();
                     PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
 
-                prepState.setString(1, report.getUsername());
+                prepState.setString(1, this.usernameField.getText());
                 
                 // Results of the query are obtained
                 ResultSet results = prepState.executeQuery();
@@ -130,8 +130,8 @@ public class FXMLReportCreationController implements Initializable {
 
                 // Sets both values to the new ID
                 prepState.setInt(1, (int) assignedUserId);
-                prepState.setString(2, report.getReportTitle());
-                prepState.setString(3, report.getReportBody());
+                prepState.setString(2, this.titleField.getText());
+                prepState.setString(3, this.reportField.getText());
 
                 prepState.executeUpdate();
 

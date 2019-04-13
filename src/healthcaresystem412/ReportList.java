@@ -25,7 +25,7 @@ public class ReportList {
         // Creates a loop to iterate and add to the ArrayList reports that are generated for each userID that may be viewed by the user
         for (int i = 0; i < userIDArrayList.size(); i++) {
             // SQL String to pull results from the report table by userID
-            String SQL = "SELECT appuser.user_name,appuser.user_first_last,appuser.user_dob,report.report_name,report.report_body " + 
+            String SQL = "SELECT appuser.user_name,appuser.user_first_last,appuser.user_dob,report.report_id,report.report_name,report.report_body " + 
                     "FROM appuser " + 
                     "INNER JOIN report ON appuser.user_id=report.assigned_user_id " + 
                     "WHERE user_id = ?";
@@ -39,7 +39,8 @@ public class ReportList {
                 
                 // Iterates through the results of the query, creating a report and adding it to the list
                 while (results.next()) {
-                    Report reportToAdd = new Report(results.getString("report_name"),
+                    Report reportToAdd = new Report(results.getLong("report_id"),
+                            results.getString("report_name"),
                             results.getString("report_body"),
                             results.getString("user_name"),
                             results.getString("user_first_last"),
