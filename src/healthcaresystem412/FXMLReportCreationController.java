@@ -105,12 +105,10 @@ public class FXMLReportCreationController implements Initializable {
                 // Results of the query are obtained
                 ResultSet results = prepState.executeQuery();
 
-                System.out.println("Get ID query executed");
-                // Iterates through the results, creating users and adding them to the map
+                // Finds the userID from the query
                 results.next();
                 assignedUserId = results.getInt("user_id");
                 
-                System.out.println("UserID for next query assigned");
                 
                 
                 

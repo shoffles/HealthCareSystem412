@@ -18,7 +18,8 @@ public class Report {
     
     public Report(long reportId, String title, String body, String username, String name, String dob) {
         this.reportId = reportId;
-//        this.reportDate = LocalDate.now();
+        // Report Data is for last implementation
+        // this.reportDate = LocalDate.now();
         this.reportTitle = title;
         this.reportBody = body;
         this.username = username;
@@ -26,13 +27,15 @@ public class Report {
         this.dob = dob; 
     }
 
-//    public long getReportId() {
-//        return reportId;
-//    }
-//
-//    public String getReportDate() {
-//        return reportDate.toString();
-//    }
+    public long getReportId() {
+        return reportId;
+    }
+
+    /*
+    public String getReportDate() {
+        return reportDate.toString();
+    }
+    */
 
     public String getReportTitle() {
         return reportTitle;

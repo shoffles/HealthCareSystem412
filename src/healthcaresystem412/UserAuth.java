@@ -102,7 +102,7 @@ public class UserAuth {
                 }
             }
             
-            // Second adds a recursive assignment so that a user may see their own reports
+            // Second blocks adds a recursive assignment so that a user may see their own reports
             {
                 String SQL = "INSERT INTO doctor_to_patient_assignment(viewer_id, to_be_viewed_id) " 
                         + "VALUES(?,?)";
