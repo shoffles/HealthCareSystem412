@@ -89,7 +89,7 @@ assigned_user_id integer NOT NULL,
 report_name VARCHAR(255) NOT NULL,
 report_body VARCHAR(600) NOT NULL,
 CONSTRAINT report_assigned_user_id_fkey FOREIGN KEY (assigned_user_id)
-(# REFERENCES appuser (user_id) MATCH SIMPLE
+REFERENCES appuser (user_id) MATCH SIMPLE
 ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 ```
