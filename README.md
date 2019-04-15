@@ -95,6 +95,10 @@ ON UPDATE NO ACTION ON DELETE NO ACTION
 ```
 And now our databases are set up for the application!
 
+
+*There may be an issue regarding a missing jar file. To fix this right click on the project in netbeans, go to properties, 
+libaries tab, and remove the missing jar from the list. The application should then run.
+
 ## Database Schema
 #### Table: appuser
 ##### user_id
