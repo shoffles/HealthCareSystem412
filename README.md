@@ -149,5 +149,25 @@ VALUES (1, <>);
 ```
 Where <> is a placeholder for the userID of the user you created, probably ID 2.  This will create a mapping which is JOINED and queried when loading the view for viewers.  Now, when logging into the admin class, you may now see that the report you entered before is now present on the list!
 
-#Refactoring Changes
+# Refactoring Changes
+## User
+The reafactored user class consists of userId, username, type, password, name, and DOB along with getters for obtaining this information. These map to a database table for saving.
+
+## UserAuth
+UserAuth is the main class for getting and creating new entries into the database, and contains a static variable that the database loads its information into when queried. It has methods for getting specific users, getting a users type, checking the username and password for login, and creating new user accounts.
+
+## Report
+The report class consists of information related to reports on patients. This includes a unique id, reportDate, reportTitle, reportBody, username, name, and DOB (the last 3 identify the patient the report is for). Getters have been included.
+
+## ReportList
+Similar to UserAuth, ReportList contrains a static mapping of reports that are retrieved from the database. All loading of reports is done through here.
+
+## PostgresConnector
+A simple class that instantiates a link to the postgres database.
+
+## Controller
+This special controller class serves only one person, and that is to track who is currently logged into the system. This determines what views are displayed and also what information is recieved from SQL transactions. A simple class that serves a big purpose.
+
+## View Controllers
+All the different views of the system have their own controller that is associated with them. It controls what actions are perfromed when different buttons are clicked on the various views.
 
