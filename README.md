@@ -148,3 +148,6 @@ INSERT INTO doctor_to_patient_assignment (viewer_id, to_be_viewed_id)
 VALUES (1, <>);
 ```
 Where <> is a placeholder for the userID of the user you created, probably ID 2.  This will create a mapping which is JOINED and queried when loading the view for viewers.  Now, when logging into the admin class, you may now see that the report you entered before is now present on the list!
+
+#Refactoring Changes
+
