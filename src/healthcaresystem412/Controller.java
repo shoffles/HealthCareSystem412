@@ -8,6 +8,7 @@ package healthcaresystem412;
 
 public class Controller {
     
+    // This is a session user, used for all checks for userIDs, permissions, and other uses
     public static User user;
 
     

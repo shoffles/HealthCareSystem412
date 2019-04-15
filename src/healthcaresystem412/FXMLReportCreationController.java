@@ -7,6 +7,10 @@ package healthcaresystem412;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -83,8 +87,58 @@ public class FXMLReportCreationController implements Initializable {
     @FXML
     private void handleSubmitButton(ActionEvent event) throws IOException {
         
-        Report report = new Report(this.titleField.getText(), this.reportField.getText(), this.usernameField.getText(), this.nameField.getText(), this.ageField.getText());
-        ReportList.reports.add(report);
+        // Report report = new Report(this.titleField.getText(), this.reportField.getText(), this.usernameField.getText(), this.nameField.getText(), this.ageField.getText());
+        // Add to DB
+        long assignedUserId = 0;
+        
+        // This block queries the appuser table to set a user ID for entry into the report field
+        {
+            String SQL = "SELECT user_id,user_name,user_type,user_password,user_first_last,user_dob " + 
+                    "FROM appuser " +   
+                    "WHERE user_name = ?";
+
+            try (Connection sqlConnection = PostgresConnector.connect();
+                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+
+                prepState.setString(1, this.usernameField.getText());
+                
+                // Results of the query are obtained
+                ResultSet results = prepState.executeQuery();
+
+                // Finds the userID from the query
+                results.next();
+                assignedUserId = results.getInt("user_id");
+                
+                
+                
+                
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        // This block inserts a report into the report table using the ID scraped from the Username search
+        {
+            String SQL = "INSERT INTO report(assigned_user_id,report_name,report_body) " 
+                    + "VALUES(?,?,?)";
+
+            try (Connection sqlConnection = PostgresConnector.connect();
+                    PreparedStatement prepState = sqlConnection.prepareStatement(SQL)) {
+
+                // Sets both values to the new ID
+                prepState.setInt(1, (int) assignedUserId);
+                prepState.setString(2, this.titleField.getText());
+                prepState.setString(3, this.reportField.getText());
+
+                prepState.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Report added!");
         alert.show();
