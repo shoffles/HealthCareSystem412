@@ -96,10 +96,13 @@ ON UPDATE NO ACTION ON DELETE NO ACTION
 And now our databases are set up for the application!
 
 
-*There may be an issue regarding a missing jar file. To fix this right click on the project in netbeans, go to properties, 
-libraries tab, and remove the missing jar from the list. The application should then run.
+*There may be an issue regarding a missing jar file. To fix this, right click on the project in Netbeans, go to properties, 
+libraries tab, and remove the missing jar from the list. The application should then run.*
 
 ## Database Schema
+
+Database Schema created and organized by Konnor Sidler
+
 #### Table: appuser
 ##### user_id
 This value is auto generated upon saving to the table, and is the primary key of the table as well as a foreign key in the other two tables
@@ -133,7 +136,7 @@ Descriptor of a report, a title
 The body of the report, containing various information about the assigned user for that check-up
 
 ## Latest Release Support
-Latest release is for M05-A01, implementing two use cases.  
+Latest release is for M04-A03, implementing two use cases.  
 
 #### Use Case 1: Creating a new user
 For this, we suggest creating a patient so that they may see their reports.  Select the "Create User" tab on the login page, and create a patient.  This will save that user to the database, along with a mapping so they may view their own report. Support for creating other mappings will be implemented next.  You can then log into the system with that username and password
@@ -151,23 +154,38 @@ Where <> is a placeholder for the userID of the user you created, probably ID 2.
 
 # Refactoring Changes
 ## User
-The reafactored user class consists of userId, username, type, password, name, and DOB along with getters for obtaining this information. These map to a database table for saving.
+The refactored user class consists of userId, username, type, password, name, and DOB along with getters for obtaining this information. These map to a database table for saving.
+
+User class refactoring done by Thomas Shoff
 
 ## UserAuth
 UserAuth is the main class for getting and creating new entries into the database, and contains a static variable that the database loads its information into when queried. It has methods for getting specific users, getting a users type, checking the username and password for login, and creating new user accounts.
 
+UserAuth class refactoring done by Thomas Shoff
+UserAuth PostgreSQL implementation done by Konnor Sidler
+
 ## Report
 The report class consists of information related to reports on patients. This includes a unique id, reportDate, reportTitle, reportBody, username, name, and DOB (the last 3 identify the patient the report is for). Getters have been included.
 
+Report class refactoring done by Thomas Shoff
+
 ## ReportList
-Similar to UserAuth, ReportList contrains a static mapping of reports that are retrieved from the database. All loading of reports is done through here.
+Similar to UserAuth, ReportList contains a static mapping of reports that are retrieved from the database. All loading of reports is done through here.
+
+ReportList class refactoring done by Thomas Shoff
+ReportList PostgreSQL implementation done by Konnor Sidler
 
 ## PostgresConnector
 A simple class that instantiates a link to the postgres database.
 
+PostgreSQL class refactoring done by Konnor Sidler
+
 ## Controller
-This special controller class serves only one person, and that is to track who is currently logged into the system. This determines what views are displayed and also what information is recieved from SQL transactions. A simple class that serves a big purpose.
+This special controller class serves only one person, and that is to track who is currently logged into the system. This determines what views are displayed and also what information is received from SQL transactions. A simple class that serves a big purpose.
+
+Controller class refactoring done by Thomas Shoff
 
 ## View Controllers
-All the different views of the system have their own controller that is associated with them. It controls what actions are perfromed when different buttons are clicked on the various views.
+All the different views of the system have their own controller that is associated with them. It controls what actions are performed when different buttons are clicked on the various views.
 
+View Controllers class refactoring done by Thomas Shoff and Konnor Sidler
