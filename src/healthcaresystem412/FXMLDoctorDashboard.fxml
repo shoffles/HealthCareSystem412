@@ -20,9 +20,9 @@
             </Text>
             <TableView fx:id="table" layoutX="14.0" layoutY="39.0" prefHeight="344.0" prefWidth="484.0">
               <columns>
-                <TableColumn fx:id="idCol" prefWidth="82.0" text="Report ID" />
-                <TableColumn fx:id="nameCol" prefWidth="209.0" text="Patient Name" />
-                  <TableColumn fx:id="titleCol" prefWidth="189.0" text="Report Title" />
+                <TableColumn fx:id="patientNameCol" prefWidth="82.0" text="Patient Name" />
+                <TableColumn fx:id="titleCol" prefWidth="209.0" text="Report Title" />
+                  <TableColumn fx:id="bodyCol" prefWidth="189.0" text="Report Content" />
               </columns>
             </TableView>
             <Button fx:id="newReportButton" layoutX="506.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleNewReportAction" text="New Report" />
