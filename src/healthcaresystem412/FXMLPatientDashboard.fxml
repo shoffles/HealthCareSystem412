@@ -22,7 +22,7 @@
               <columns>
                 <TableColumn fx:id="idCol" prefWidth="142.0" text="Report ID" />
                 <TableColumn fx:id="titleCol" prefWidth="116.0" text="Report Title" />
-                  <TableColumn fx:id="dateCol" prefWidth="224.0" text="Date" />
+                  <TableColumn fx:id="bodyCol" prefWidth="224.0" text="Report Content" />
               </columns>
             </TableView>
          </children>

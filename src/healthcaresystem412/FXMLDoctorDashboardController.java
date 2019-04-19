@@ -38,7 +38,7 @@ public class FXMLDoctorDashboardController extends Controller implements Initial
     @FXML
     private Button BackButtonAction;
     @FXML
-    private TableColumn<Report, String> nameCol;
+    private TableColumn<Report, String> bodyCol;
 
     @FXML
     private Button newReportButton;
@@ -48,7 +48,7 @@ public class FXMLDoctorDashboardController extends Controller implements Initial
 //    public ObservableList<Report> list = FXCollections.observableArrayList(ReportList.reports);
             
     @FXML
-    private TableColumn<Report, String> idCol;
+    private TableColumn<Report, String> patientNameCol;
     @FXML
     private TableColumn<Report, String> titleCol;
             
@@ -87,9 +87,9 @@ public class FXMLDoctorDashboardController extends Controller implements Initial
         ObservableList<Report> list = FXCollections.observableArrayList(data);
     
         // Sets the values of the tables to be viewed
-        idCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportBody"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<Report,String>("name"));
+        patientNameCol.setCellValueFactory(new PropertyValueFactory<Report,String>("name"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportTitle"));
+        bodyCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportBody"));
         table.setItems(list);
     }    
 

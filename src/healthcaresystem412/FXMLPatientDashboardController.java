@@ -44,7 +44,7 @@ public class FXMLPatientDashboardController extends Controller implements Initia
     @FXML
     private TableColumn<Report, String> titleCol;
     @FXML
-    private TableColumn<Report, String> dateCol;
+    private TableColumn<Report, String> bodyCol;
     
     @FXML
     private TableView<Report> table;
@@ -86,7 +86,7 @@ public class FXMLPatientDashboardController extends Controller implements Initia
         
         // Sets table values
         idCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportId"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportDate"));
+        bodyCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportBody"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Report,String>("reportTitle"));
         table.setItems(list);
     }    
