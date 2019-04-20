@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -103,6 +104,16 @@ public class FXMLDoctorDashboardController extends Controller implements Initial
         window.show();
     
     }
+    
+    @FXML
+    private void handleEditPatientsAction(ActionEvent event) throws IOException {
+        System.out.println("Moving to Edit Patients");
+        Parent parent = FXMLLoader.load(getClass().getResource("FXMLEditPatients.fxml"));
+        Scene editPatientScene = new Scene(parent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(editPatientScene);
+        window.show();
+    }
 
     @FXML
     private void handleNewReportAction(ActionEvent event) throws IOException {
@@ -113,5 +124,7 @@ public class FXMLDoctorDashboardController extends Controller implements Initial
         window.setScene(reportCreationScene);
         window.show();
     }
+    
+  
     
 }
