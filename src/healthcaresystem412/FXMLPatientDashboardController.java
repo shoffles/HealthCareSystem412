@@ -113,9 +113,10 @@ public class FXMLPatientDashboardController extends Controller implements Initia
         Report report = table.getSelectionModel().getSelectedItem();
         String selected = "";
         selected = "Report Title: " + report.getReportTitle()
-                + "\nPatient: " + report.getUsername()
-                + "\nReport Body: " + report.getReportBody();
-        System.out.println(selected);
+                + "\n | " 
+                + "Patient: " + report.getUsername()
+                + "\n | "
+                + "Report Body: " + report.getReportBody();
 
        
 
