@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthcaresystem412.FXMLPatientDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthcaresystem412.FXMLPatientDashboardController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -25,6 +25,7 @@
                   <TableColumn fx:id="bodyCol" prefWidth="224.0" text="Report Content" />
               </columns>
             </TableView>
+            <Button fx:id = "exportButton" layoutX="503.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleExportAction" prefHeight="27.0" prefWidth="91.0" text="Export" />
          </children>
       </AnchorPane>
    </children>

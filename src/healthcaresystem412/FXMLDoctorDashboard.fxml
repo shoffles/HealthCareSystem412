@@ -26,7 +26,8 @@
               </columns>
             </TableView>
             <Button fx:id="newReportButton" layoutX="506.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleNewReportAction" text="New Report" />
-            <Button fx:id="editPatientsButton" layoutX="506.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleEditPatientsAction" prefHeight="53.0" prefWidth="91.0" text="Edit Patients" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="createAssignmentButton" layoutX="506.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleCreateAssignmentAction" prefHeight="53.0" prefWidth="91.0" text="Create Assignment" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="exportButton" layoutX="506.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleExportAction" prefHeight="27.0" prefWidth="91.0" text="Export" />
          </children>
       </AnchorPane>
    </children>
