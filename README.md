@@ -96,7 +96,7 @@ ON UPDATE NO ACTION ON DELETE NO ACTION
 And now our databases are set up for the application!
 
 
-*There may be an issue regarding a missing jar file. To fix this, right click on the project in Netbeans, go to properties, 
+*There may be an issue regarding a missing jar file. To fix this, right click on the project in Netbeans, go to properties,
 libraries tab, and remove the missing jar from the list. The application should then run.*
 
 ## Database Schema
@@ -135,23 +135,6 @@ Descriptor of a report, a title
 ##### report_body
 The body of the report, containing various information about the assigned user for that check-up
 
-## Latest Release Support
-Latest release is for M04-A03, implementing two use cases.  
-
-#### Use Case 1: Creating a new user
-For this, we suggest creating a patient so that they may see their reports.  Select the "Create User" tab on the login page, and create a patient.  This will save that user to the database, along with a mapping so they may view their own report. Support for creating other mappings will be implemented next.  You can then log into the system with that username and password
-
-#### Use Case 2: Creating a report
-Log into the admin user (Username: admin, Password: password).  This will bring you to a report view, along with a button to create a report.  On the create report page, enter the user you created into the search bar, and search for the user.  This will auto populate the fields. Now, create a report title and body, and select the "create" button.  This will save your report! Notice how it does not display on the table screen, as there is currently no association mapping from admin to the user you created.
-
-#### Use Case 3: Displaying a list of Report objects
-If you would like to see the data for this new report, you can create a mapping manually in the database by using psql. To do that, you can navigate to the database and run the following:
-```
-INSERT INTO doctor_to_patient_assignment (viewer_id, to_be_viewed_id)
-VALUES (1, <>);
-```
-Where <> is a placeholder for the userID of the user you created, probably ID 2.  This will create a mapping which is JOINED and queried when loading the view for viewers.  Now, when logging into the admin class, you may now see that the report you entered before is now present on the list!
-
 # Refactoring Changes
 ## User
 The refactored user class consists of userId, username, type, password, name, and DOB along with getters for obtaining this information. These map to a database table for saving.
@@ -189,3 +172,35 @@ Controller class refactoring done by Thomas Shoff
 All the different views of the system have their own controller that is associated with them. It controls what actions are performed when different buttons are clicked on the various views.
 
 View Controllers class refactoring done by Thomas Shoff and Konnor Sidler
+
+## Assignment
+The assignment button on the doctor dashboard screen allows automatic mapping of usernames from doctors to patients without a manual database insert.  
+
+Assignment class creation done by Steven Weber, SQL was created by Konnor Sidler
+
+## Export
+The export functionality allows a user to export a report to their own local machine by first selecting a row on the dashboard and clicking the export button
+
+Export functionality creation done by Steven Weber
+
+## Latest Release Support
+Latest release is for M05-A02, implementing Use Cases 3 and 4.
+
+For the sake of organization and flow of the application for testing, we rearranged the order of the use cases.   
+
+#### Set Up: Creating a new user
+For this, we suggest creating a patient so that they may see their reports.  Select the "Create User" tab on the login page, and create a patient.  This will save that user to the database, along with a mapping so they may view their own report. Support for creating other mappings will be implemented next.  You can then log into the system with that username and password.  Remember the username and password for testing other use cases!
+
+#### Use Case 1: Assignment Based Viewing of Patients
+Logging into the admin viewer, you may only see reports of the patients that are assigned to you.  Of course, on a fresh release, there are no other users on the system.  We recommend that you create a few test patients and use the assignment button on the admin page to create assignments to other users you create.  
+
+For example, if testdoctor1 is assigned to testpatient1, and testdoctor2 is assigned to testpatient2, their respective dashboard views will only display the information they are allowed to see.  
+
+#### Use Case 2: Creating a report
+Log into the admin user (Username: admin, Password: password).  This will bring you to a report view, along with a button to create a report.  On the create report page, enter the user you created into the search bar, and search for the user.  This will auto populate the fields. Now, create a report title and body, and select the "create" button.  This will save your report! Notice how it does not display on the table screen, as there is currently no association mapping from admin to the user you created.
+
+#### Use Case 3: Displaying and Viewing a list of Report objects
+If you would like to see the data for this new report, you can create a mapping by logging in as a doctor and using the "Create Assignment" button to create a mapping between two usernames. This will create a mapping which is JOINED and queried when loading the view for viewers.  Now, when logging into the admin class, you may now see that the report you entered before is now present on the list!
+
+#### Use Case 4: Exporting a Report
+First, log in as a user who had a report created.  Now, you may see their dashboard and list of reports.  Click a row, click the export button, and select a destination.  The report is now saved to your local device.
